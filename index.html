@@ -1,0 +1,38 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-08-02 21:15:41
+ * @LastEditTime: 2020-08-02 21:48:43
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \undefinedc:\Users\925423\Desktop\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="username" value ="张三">
+    <input type="text" id="password" value ="123">
+    <input type="submit" id="submitBtn" value='提交'>
+    <script type ="text/javascript">
+        var oUsername =document.getElementById('username');
+        var oPassword =document.getElementById("password");
+        var oSubmitBtn =document.getElementById("submitBtn");
+        var fd = new FormData();
+        oSubmitBtn.onclick =function (){
+            fd.append("Username",oUsername.value);
+            fd.append("Password",oPassword.value);
+            console.log("username"+fd.get('Username'));
+            console.log("password"+fd.get('Password'));
+            fd.set('Username',"李四");
+            console.log("username:"+fd.get("Username"));
+            console.log(fd.has('Password'))
+            fd.delete("Password");
+            console.log("password"+fd.get('Password'))
+        }
+    </script>
+</body>
+</html>

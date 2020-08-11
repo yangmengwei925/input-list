@@ -1,0 +1,102 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-08-02 21:52:22
+ * @LastEditTime: 2020-08-02 23:30:05
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \undefinedc:\Users\925423\Desktop\index1.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传文件</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+            list-style: none;
+        }
+        ul{
+            margin-top: 100px;
+        }
+        .progress-bar{
+            position: relative;
+            width:300px;
+            height: 40px;
+            text-align: center;
+            border:1px solid #666
+        }
+        .progress{
+            width:50%;
+            height: 100%;
+            background-color: #006;
+        }
+        .error-info{
+           
+            line-height: 40px;
+            font-size: 14px;
+            color:#333
+        }
+    </style>
+</head>
+<body>
+  <input type="file" id="file" multiple>
+  <input type="submit" id="submitBtn" value ="上传文件">  
+    <ul class=“progress-wrap>
+        <li class="progress-bar">
+            <div class="progress"></div>
+            <span class="error-info">文件类型错误</span>
+        </li>
+    </ul>
+    <script>
+       var oFile =document.getElementById("file") ;
+       var oSubmitBtn =document.getElementById("submitBtn");
+       var oProgressWrap =document.getElementsByClassName('progress-wrap')[0];
+       oFile.onchange = function(){
+        //    console.log(oFile.oFile);
+        //    console.log(oFile.files);
+           var files =oFile.files;
+           fileLen =files.length;
+           if(fileLen<=0){
+               console.log("您还没有选择图片")
+            //    new Error("您还没有选择图片")
+               return ;
+
+           }
+           if(fileLen>5){
+               console.log("最多5张")
+            //    new Error("最多5张")
+               return ;
+           }
+           var fileName ="";
+           var fileSize =0;
+           var maxSize  ="1048576";
+           var fd =null;
+           var errorInfo ="";
+           for(var i=0;i<fileLen;i++){
+                fileName =files[i].name;
+                fileSize = files[i].size;
+            //     console.log(/\.(gif|jpg|jpeg|png)$/.test(fileName))
+            //  if(!/\.(gif|jpg|jpeg|png)$/.test(fileName)){
+            //      errorInfo ="[" +fileName +"] 文件不是图片类型";
+            //  }
+             if(fileSize>maxSize){
+               errorInfo ='[' +fileName +']超过了上传大小';
+             }
+             var oProgressBar =document.createElement('li');
+             oProgressBar.className ='progress-bar';
+            //  oProgressWrap.appendChild(oProgressBar);
+             if(errorInfo!==""){
+               oProgressBar.inner ='<span class="error-info">'+errorInfo +'</span>' 
+             }else{
+                oProgressBar.innerHTML ='<div class="progress-bar"></div>';
+                fd =new FormData();
+                fd.append('file',files[i])
+             }
+           }
+       }
+    </script>
+</body>
+</html>
